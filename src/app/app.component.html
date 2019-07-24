@@ -1,20 +1,87 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>{{ title }}</h1>
+      <h2>Chosen Location Types: {{chosenType}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-4"
+    style="padding-left: 0px"
+    >
+        <app-speech></app-speech>
+    </div>
+    <div class="col-xs-8 customRight" >
+        <button  class="btn btn-success" (click)="onTypeToggle()">Type Toogle</button>
+        <button class="btn btn-primary" (click)="onMarkerToggle()">Marker Toogle</button>
+        <button class="btn btn-primary" (click)="onHeatMapToggle()">HeatMap Toogle</button>
+        <button class="btn btn-danger" (click)="changeRadius()">Change Radius</button>
+    </div>
+  </div>
 
+  <div class="row">
+    <!-- this creates a google map on the page with the given lat/lng from -->
+    <!-- the component as the initial center of the map: -->
+    <agm-map 
+    [latitude]="lat" 
+    [longitude]="lng"
+    (mapReady)="onMapLoad($event)">
+      <!-- <agm-marker [latitude]="lat" [longitude]="lng" >
+        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+          <ng-template>
+            My first Snazzy Info Window!
+          </ng-template>
+        </agm-snazzy-info-window>
+      </agm-marker> -->
+      <!-- <agm-snazzy-info-window [isOpen]="true" [latitude]="51.673858" [longitude]="7.815982" [closeWhenOthersOpen]="true">
+        <ng-template>
+          My first Snazzy Info Window!
+        </ng-template>
+      </agm-snazzy-info-window> -->
+    </agm-map>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-xs-3">
+        <div id="route" >               
+            <input #googleAutocomplete type="text"  placeholder="Enter a location" class="customStretch"/>
+        </div>
+        <div id="locality">
+            <label >Locality: </label>
+            <input id="address_locality" #address_locality type="text" class="pull-right">
+        </div>
+    </div>
+      
+
+    <div class="col-xs-3">
+        <div id="country">
+            <label >Country: </label>                
+            <input id="address_country" #address_country type="text" >
+        </div>
+  
+        <div id="postalcode">
+            <label  >PinCode: </label>
+            <input id="address_postcode" #address_postcode type="text">
+        </div>
+    </div>
+
+    <div class="col-xs-3">
+        <div>
+            <select #locationType class="customStretch">
+                <option value="distress" >Distress</option>
+                <option value="supply" >Suply</option>
+              </select>
+        </div>
+  
+        <div>
+            <label >Severity:</label>
+            <input type="number" #severity class="pull-right"/>
+        </div>
+    </div>
+    <div class="col-xs-3">
+        <input id="geocode" type="button"  class="btn btn-success customStretch " (click)="onGeoCode()" value="geocode"/>
+    </div>
+  </div>
+      
+  
+</div>

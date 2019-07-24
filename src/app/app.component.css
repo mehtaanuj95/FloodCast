@@ -1,0 +1,15 @@
+agm-map {
+    height: 300px;
+  }
+
+.customRight {
+  text-align:right;
+}
+
+.customStretch {
+  width: 100%;
+}
+
+.customFloat{
+  float: right;
+}
